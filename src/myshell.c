@@ -2,8 +2,13 @@
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
+#include "ls_command.h"
+
+
+
 #define MAX_LINE 80
 #define MAX_ARGS 10
+
 int main()
 {
     char input[MAX_LINE];
@@ -34,6 +39,16 @@ int main()
         } else if (strcmp(argv[0], "pwd") == 0){
             getcwd(input, MAX_LINE);
             printf("%s\n", input);
+        } else if (strcmp(argv[0], "ls") == 0){
+            my_ls();
+        } else if (strcmp(argv[0], "cat") == 0){
+            my_cat(argv[1]);
+        } else {
+            if (access(argv[0], X_OK) == 0){
+                printf("execute %s\n", argv[0]);
+            } else {
+                printf("Wrong command %s\n", argv[0]);
+            }
         }
     }
 
